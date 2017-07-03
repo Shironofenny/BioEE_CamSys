@@ -1,6 +1,6 @@
 # Image widget used to display image captured from opencv
 
-from PyQt4 import QtCore, QtGui, QtOpenGL
+from PyQt5 import QtCore, QtGui, QtWidgets, QtOpenGL
 import cv2
 
 class CVImageWidget(QtOpenGL.QGLWidget):

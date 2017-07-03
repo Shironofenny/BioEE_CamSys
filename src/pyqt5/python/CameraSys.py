@@ -1,43 +1,125 @@
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 import cv2
-from threading import Thread
+import time
+from datetime import datetime
+from threading import Thread, Event, RLock
 
 import UI
 from Camera import Camera
+import Constant
 
-class CameraSys(QtGui.QMainWindow):
+class CameraSys(QtWidgets.QMainWindow):
     def __init__(self):
-        super(QtGui.QMainWindow, self).__init__()
+        super(QtWidgets.QMainWindow, self).__init__()
 
         self.ui = UI.Ui_MainWindow()
         self.ui.setupUi(self)
         self.cam = Camera()
 
         # Loading constants
-        self.displaySize = (720, 405)
+        self.displaySize = Constant.SCREEN_DISPLAY_RES
 
-        # Local signals
-        self.stopFlag = False
+        # Threads
+        # Camera thread control
+        self.cameraThread = Thread(group = None, target = self.capture, name = "Camera System, Camera")
+        self.cameraThreadKiller = Event()
+        self.cameraLock = RLock()
+
+        self.frame = None
+        self.videoFrame = None
+
+        # Flags remembering the startup initialization
+        self.savePictureStartUpFlag = False
+        self.startingTime = time.time()
+        self.lastShotTime = time.time()
+
+        # Control for picture saving
+        self.pictureSavingInterval = Constant.DEFAULT_SAVE_INTERVAL;
+        self.pictureSavingTimer = QtCore.QTimer(self)
 
         self.bondInteraction()
 
+        # Display thread control (unfortunately this need to be within main thread)
+        self.displayUpdater = Event()
+        self.displayUpdater.clear()
+        self.displayTimer = QtCore.QTimer(self)
+        self.startDisplay()
+
+        self.startCameraThread()
+
     def bondInteraction(self):
-        self.ui.pbCapture.clicked.connect(self.display)
-        self.ui.pbStop.clicked.connect(self.release)
+        self.ui.pbCapture.clicked.connect(self.startSavingPicture)
 
-    def display(self):
-        print("Reading incoming stream")
-        while True :
-            frame = self.cam.captureOnce()
-            frame480 = cv2.resize(frame, self.displaySize)
-            self.ui.cviVideo.render(frame480)
+    # Camera thread control functions:
+    def startCameraThread(self):
+        if not self.cameraThread.isAlive() :
+            if not self.cam.isCameraOpened() :
+                self.cam.openCamera()
+            self.cameraThread = Thread(group = None, target = self.capture, name = "Camera System, Camera")
 
-            if self.stopFlag :
-                break
+        try :
+            self.cameraThread.start()
+        except RuntimeError as e :
+            print("Runtime Error: ({0}): {1}".format(e.errno, e.strerror))
 
-        print("Stop reading from incoming stream")
-    
-    def release(self):
-        self.stopFlag = True
+    def stopCameraThread(self):
+        self.cameraThreadKiller.set()
+
+    # Capture thread function
+    def capture(self):
+        while not self.cameraThreadKiller.wait(0.001) :
+            self.cameraLock.acquire()
+            self.frame = self.cam.captureOnce()
+            self.videoFrame = cv2.resize(self.frame, self.displaySize)
+            self.cameraLock.release()
+            self.displayUpdater.set()
+
         self.cam.release()
-        cv2.destroyAllWindows()
+        self.cameraThreadKiller.clear()
+
+    # Display control functions
+    def startDisplay(self):
+        if self.displayTimer.isActive() :
+            self.displayTimer.stop()
+        self.displayTimer.setInterval(0.001)
+        self.displayTimer.setSingleShot(False)
+        self.displayTimer.timeout.connect(self.display)
+        self.displayTimer.start()
+
+    def display(self) :
+        if self.displayUpdater.isSet() :
+            self.cameraLock.acquire()
+            self.ui.cviCamera.render(self.videoFrame)
+            self.displayUpdater.clear()
+            self.cameraLock.release()
+
+    # Picture saving function
+    def startSavingPicture(self) :
+        if self.pictureSavingTimer.isActive() :
+            self.pictureSavingTimer.stop()
+        self.pictureSavingTimer.setInterval(0.5)
+        self.pictureSavingTimer.setSingleShot(False)
+        self.pictureSavingTimer.timeout.connect(self.savePicture)
+        self.pictureSavingTimer.start()
+
+    def savePicture(self):
+        if self.displayUpdater.isSet() :
+            if self.savePictureStartUpFlag :
+                self.lastShotTime = time.time()
+            else :
+                timeNow = time.time()
+                if ( timeNow - self.lastShotTime ) > self.pictureSavingInterval :
+                    filename = Constant.FILE_PREFIX + datetime.now().strftime('%m%d%yD%HH%MM') + '.png'
+                    print("Saving capture to file" + filename)
+                    self.cameraLock.acquire()
+                    cv2.imwrite(filename, self.frame, [cv2.IMWRITE_PNG_COMPRESSION, Constant.PNG_COMPRESSION_LEVEL])
+                    self.ui.cviPhoto.render(self.videoFrame)
+                    self.cameraLock.release()
+                    self.lastShotTime = timeNow
+
+    # Overriden close event
+    def closeEvent(self, event) :
+        self.stopCameraThread()
+        print("Closing event accepted")
+        time.sleep(1)
+        event.accept()

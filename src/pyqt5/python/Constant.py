@@ -1,0 +1,27 @@
+# File: Constant.py
+# Creator: Yihan Zhang, yz2567@columbia.edu
+#
+# This file handles all the constants used in the camera time-lapse system
+
+# The ID of the web-cam used.
+# If used in a labtop with a built-in web-cam, this number is likely to be 1 instead of 0
+# But how the system assign these numbers remain a mistery to me
+CAMERA_ID = 0
+
+# This is the default interval of taking pictures
+DEFAULT_SAVE_INTERVAL = 10*60
+
+# The default position of saving the images as well as the file name prefix
+FILE_PREFIX = '../dphz_'
+
+# The output picture compression level. 0 means no compression, 9 means maximum compression
+PNG_COMPRESSION_LEVEL = 5
+
+# Display resolution
+SCREEN_DISPLAY_RES = (720, 405)
+
+# Picture saving resolution
+PIC_SAVE_RES = (1920, 1080)
+
+# Raw capture resolution
+RAW_CAPTURE_RES = (1920, 1080)

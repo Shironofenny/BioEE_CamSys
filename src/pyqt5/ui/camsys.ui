@@ -15,29 +15,50 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <property name="topMargin">
+     <number>9</number>
+    </property>
+    <property name="rightMargin">
+     <number>10</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
-     <widget class="QWidget" name="widget" native="true">
+     <widget class="QWidget" name="camPanel" native="true">
       <property name="minimumSize">
        <size>
         <width>560</width>
         <height>0</height>
        </size>
       </property>
+      <property name="maximumSize">
+       <size>
+        <width>720</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="spacing">
-        <number>25</number>
+        <number>20</number>
        </property>
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
-        <widget class="CVImageWidget" name="cviVideo" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>560</width>
-           <height>315</height>
-          </size>
-         </property>
+        <widget class="CVImageWidget" name="cviCamera" native="true">
          <property name="maximumSize">
           <size>
            <width>560</width>
@@ -48,12 +69,6 @@
        </item>
        <item>
         <widget class="CVImageWidget" name="cviPhoto" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>560</width>
-           <height>315</height>
-          </size>
-         </property>
          <property name="maximumSize">
           <size>
            <width>560</width>
@@ -66,8 +81,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="widget_2" native="true">
+     <widget class="QWidget" name="controlPanel" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QWidget" name="widget" native="true"/>
+       </item>
        <item>
         <widget class="QPushButton" name="pbCapture">
          <property name="text">
@@ -93,7 +111,7 @@
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>25</height>
+     <height>31</height>
     </rect>
    </property>
   </widget>

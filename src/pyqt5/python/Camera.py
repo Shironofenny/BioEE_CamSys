@@ -1,21 +1,28 @@
 import cv2
+import Constant
 
 class Camera(object):
-    def __init__(self):
-        self.capture = cv2.VideoCapture(0)
+    def __init__(self) :
+        self.openCamera()
+
+    def isCameraOpened(self) :
+        return self.capture.isOpened()
+
+    def openCamera(self) :
+        self.capture = cv2.VideoCapture(Constant.CAMERA_ID)
         if not self.capture.isOpened():
             print("Camera not configured properly")
             return None
-        
+
         # Loading default constants
-        self.captureSize = (1920, 1080)
+        self.captureSize = Constant.RAW_CAPTURE_RES
         self.camBrightness = 1
 
         self.loadCameraStaParam()
-    
+
     # Documentation from OpenCV.org on camera properties.
     # Python interface uses directly the id code
-    # ID    NAME    
+    # ID    NAME
     # 0     CV_CAP_PROP_POS_MSEC Current position of the video file in milliseconds.
     # 1     CV_CAP_PROP_POS_FRAMES 0-based index of the frame to be decoded/captured next.
     # 2     CV_CAP_PROP_POS_AVI_RATIO Relative position of the video file: 0 - start of the film, 1 - end of the film.
@@ -38,7 +45,7 @@ class Camera(object):
     # 19    CV_CAP_PROP_RECTIFICATION Rectification flag for stereo cameras (note: only supported by DC1394 v 2.x backend currently)
     # 20    CV_CAP_PROP_ISO_SPEED The ISO speed of the camera (note: only supported by DC1394 v 2.x backend currently)
     # 21    CV_CAP_PROP_BUFFERSIZE Amount of frames stored in internal buffer memory (note: only supported by DC1394 v 2.x backend currently)
-    
+
     def loadCameraDynParam(self):
         self.capture.set(10, self,camBrightness)
 
