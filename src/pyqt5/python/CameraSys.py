@@ -6,18 +6,48 @@ from threading import Thread, Event, RLock
 
 import UI
 from Camera import Camera
+from Arduino import Arduino
 import Constant
 
 class CameraSys(QtWidgets.QMainWindow):
     def __init__(self):
         super(QtWidgets.QMainWindow, self).__init__()
 
-        self.ui = UI.Ui_MainWindow()
-        self.ui.setupUi(self)
-        self.cam = Camera()
+        # System internal flags
+        self.isUIReady = False;
+        self.isArduinoReady = False;
+        self.isCameraReady = False;
+
+        # Bring up the UI
+        # If UI is not avaiable, then there is no point running this program any longer.
+        try :
+            self.ui = UI.Ui_MainWindow()
+            self.ui.setupUi(self)
+            self.isUIReady = True
+        except Exception as e :
+            print("MAIN: " + e)
+            print("MAIN: Unknown error when setting up UI")
+            QtCore.QCoreApplication.exit(-1)
+            return
+
+        self.ui.statusbar.showMessage("Initializing UI...")
+
+        # Connecting to arduino
+        # Program will carry on if no arduino is connected
+        self.arduino = Arduino()
+        self.arduino.connect()
+        if None == self.arduino :
+            print("MAIN: Arduino not found, LED related function will be turned off")
+        else :
+            self.isArduinoReady = True
+            self.arduino.turnOffLED()
 
         # Loading constants
         self.displaySize = Constant.SCREEN_DISPLAY_RES
+
+        # Open camera
+        # Program will carry on even if there is no camera detected
+        self.cam = Camera()
 
         # Threads
         # Camera thread control
@@ -34,7 +64,10 @@ class CameraSys(QtWidgets.QMainWindow):
         self.lastShotTime = time.time()
 
         # Control for picture saving
-        self.pictureSavingInterval = Constant.DEFAULT_SAVE_INTERVAL;
+        self.ledOnTime = Constant.DEFAULT_LED_ON_TIME
+        self.ledOffTime = Constant.DEFAULT_LED_OFF_TIME
+        self.isLEDOn = False
+        self.pictureSavingInterval = Constant.DEFAULT_SAVE_INTERVAL
         self.pictureSavingTimer = QtCore.QTimer(self)
 
         self.bondInteraction()
@@ -46,9 +79,11 @@ class CameraSys(QtWidgets.QMainWindow):
         self.startDisplay()
 
         self.startCameraThread()
+        self.startSavingPicture()
 
     def bondInteraction(self):
-        self.ui.pbCapture.clicked.connect(self.startSavingPicture)
+        pass
+        #self.ui.pbCapture.clicked.connect(self.startSavingPicture)
 
     # Camera thread control functions:
     def startCameraThread(self):
@@ -108,7 +143,10 @@ class CameraSys(QtWidgets.QMainWindow):
                 self.lastShotTime = time.time()
             else :
                 timeNow = time.time()
-                if ( timeNow - self.lastShotTime ) > self.pictureSavingInterval :
+                if ( timeNow - self.lastShotTime ) > self.ledOnTime and not self.isLEDOn:
+                    self.arduino.turnOnLED()
+                    self.isLEDOn = True
+                elif ( timeNow - self.lastShotTime ) > self.pictureSavingInterval :
                     filename = Constant.FILE_PREFIX + datetime.now().strftime('%m%d%yD%HH%MM') + '.png'
                     print("Saving capture to file" + filename)
                     self.cameraLock.acquire()
@@ -116,10 +154,13 @@ class CameraSys(QtWidgets.QMainWindow):
                     self.ui.cviPhoto.render(self.videoFrame)
                     self.cameraLock.release()
                     self.lastShotTime = timeNow
+                    self.arduino.turnOffLED()
+                    self.isLEDOn = False
 
     # Overriden close event
     def closeEvent(self, event) :
         self.stopCameraThread()
+        self.arduino.disconnect()
         print("Closing event accepted")
         time.sleep(1)
         event.accept()

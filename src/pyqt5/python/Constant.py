@@ -9,7 +9,9 @@
 CAMERA_ID = 0
 
 # This is the default interval of taking pictures
-DEFAULT_SAVE_INTERVAL = 10*60
+DEFAULT_SAVE_INTERVAL = 5*60
+DEFAULT_LED_ON_TIME = DEFAULT_SAVE_INTERVAL - 8
+DEFAULT_LED_OFF_TIME = DEFAULT_SAVE_INTERVAL + 1
 
 # The default position of saving the images as well as the file name prefix
 FILE_PREFIX = '../dphz_'
@@ -25,3 +27,12 @@ PIC_SAVE_RES = (1920, 1080)
 
 # Raw capture resolution
 RAW_CAPTURE_RES = (1920, 1080)
+
+# The baud rate of the serial commnication between arduino
+ARD_BAUDRATE = 9600
+
+# The port used by arduino
+ARD_PORT = 'COM3'
+
+# Time out for initial communication with arduino
+ARD_TIMEOUT = 0.1
