@@ -15,13 +15,14 @@ class Arduino(object):
             self.arduino = serial.Serial(port = Constant.ARD_PORT, baudrate = Constant.ARD_BAUDRATE, timeout = Constant.ARD_TIMEOUT)
         except :
             print("SERIAL CONNECT: Arduino open unsucessful, please check the port that arduino is connected")
-            return None
+            return -1
 
         while self.arduino.in_waiting == 0 :
             pass
 
         receivedData = self.arduino.readline()
         print("SERIAL CONNECT: " + receivedData)
+        return 0;
 
     def turnOnLED(self):
         self.arduino.write('1')

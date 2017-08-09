@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>720</height>
+    <height>757</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,24 +38,24 @@
       <property name="maximumSize">
        <size>
         <width>720</width>
-        <height>16777215</height>
+        <height>700</height>
        </size>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="spacing">
-        <number>20</number>
+        <number>27</number>
        </property>
        <property name="leftMargin">
         <number>0</number>
        </property>
        <property name="topMargin">
-        <number>0</number>
+        <number>20</number>
        </property>
        <property name="rightMargin">
         <number>0</number>
        </property>
        <property name="bottomMargin">
-        <number>0</number>
+        <number>20</number>
        </property>
        <item>
         <widget class="CVImageWidget" name="cviCamera" native="true">
@@ -82,7 +82,22 @@
     </item>
     <item>
      <widget class="QWidget" name="controlPanel" native="true">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>700</height>
+       </size>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="leftMargin">
+        <number>25</number>
+       </property>
+       <property name="topMargin">
+        <number>20</number>
+       </property>
+       <property name="bottomMargin">
+        <number>20</number>
+       </property>
        <item>
         <widget class="QWidget" name="widget" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -101,17 +116,39 @@
           <item>
            <widget class="QWidget" name="wCameraSetting" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_4">
+             <property name="spacing">
+              <number>2</number>
+             </property>
              <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
               <number>0</number>
              </property>
              <property name="rightMargin">
               <number>0</number>
              </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item>
-              <widget class="QLabel" name="lCameraSetting">
-               <property name="text">
-                <string>Camera Settings</string>
-               </property>
+              <widget class="QWidget" name="widget_3" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <item>
+                 <widget class="QLabel" name="lCameraSettings">
+                  <property name="text">
+                   <string>Camera Settings</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pbClickToApply">
+                  <property name="text">
+                   <string>Click to apply</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
              <item>
@@ -125,55 +162,106 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="leFocus"/>
+                 <widget class="QLineEdit" name="leFocus">
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_7" native="true">
+              <widget class="QWidget" name="wBrightness" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
-                 <widget class="QLabel" name="label_3">
+                 <widget class="QLabel" name="lBrightness">
                   <property name="text">
                    <string>Brightness</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_2"/>
+                 <widget class="QLineEdit" name="leBrightness">
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_6" native="true">
+              <widget class="QWidget" name="wHue" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_4">
                 <item>
-                 <widget class="QLabel" name="label_4">
+                 <widget class="QLabel" name="lHue">
                   <property name="text">
                    <string>Hue</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_3"/>
+                 <widget class="QLineEdit" name="leHue">
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_8" native="true">
+              <widget class="QWidget" name="wContrast" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_5">
                 <item>
-                 <widget class="QLabel" name="label_5">
+                 <widget class="QLabel" name="lContrast">
                   <property name="text">
                    <string>Contrast</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_4"/>
+                 <widget class="QLineEdit" name="leContrast">
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_2" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <item>
+                 <widget class="QLabel" name="lExposure">
+                  <property name="text">
+                   <string>Exposure</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="leExposure">
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
@@ -189,7 +277,14 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="leGain"/>
+                 <widget class="QLineEdit" name="leGain">
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
@@ -198,22 +293,133 @@
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget_4" native="true"/>
+           <widget class="QWidget" name="widget_4" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QWidget" name="widget_5" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QWidget" name="widget_7" native="true">
+                  <layout class="QHBoxLayout" name="horizontalLayout_9">
+                   <item>
+                    <widget class="QLabel" name="label_3">
+                     <property name="text">
+                      <string>Save Picture to ...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pbBrowse">
+                     <property name="text">
+                      <string>Browse</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QWidget" name="widget_8" native="true">
+                  <layout class="QVBoxLayout" name="verticalLayout_7">
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QLineEdit" name="leBrowse"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_6" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QWidget" name="widget_10" native="true">
+                  <layout class="QHBoxLayout" name="horizontalLayout_11">
+                   <item>
+                    <widget class="QLabel" name="lSavingInterval">
+                     <property name="text">
+                      <string>Saving Interval :</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="leSavingInterval">
+                     <property name="maximumSize">
+                      <size>
+                       <width>100</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QWidget" name="widget_9" native="true">
+                  <layout class="QHBoxLayout" name="horizontalLayout_10">
+                   <item>
+                    <widget class="QLabel" name="lTimeUntil">
+                     <property name="text">
+                      <string>Time until next picture :</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
          </layout>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbCapture">
+        <widget class="QPushButton" name="pbLight">
          <property name="text">
-          <string>Capture</string>
+          <string>Turn on light</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbStop">
+        <widget class="QPushButton" name="pbSaveDefault">
          <property name="text">
-          <string>Stop</string>
+          <string>Savec current settings as default</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pbExit">
+         <property name="text">
+          <string>Exit</string>
          </property>
         </widget>
        </item>
@@ -231,8 +437,32 @@
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionUnavailable"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionUnavailable">
+   <property name="text">
+    <string>Unavailable</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

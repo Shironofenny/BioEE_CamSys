@@ -9,12 +9,12 @@
 CAMERA_ID = 0
 
 # This is the default interval of taking pictures
-DEFAULT_SAVE_INTERVAL = 5*60
+DEFAULT_SAVE_INTERVAL = 15*60
 DEFAULT_LED_ON_TIME = DEFAULT_SAVE_INTERVAL - 8
 DEFAULT_LED_OFF_TIME = DEFAULT_SAVE_INTERVAL + 1
 
 # The default position of saving the images as well as the file name prefix
-FILE_PREFIX = '../dphz_'
+FILE_PREFIX = "C:\Users\labpc27\Google Drive\ColonyData\\08082017\pic"
 
 # The output picture compression level. 0 means no compression, 9 means maximum compression
 PNG_COMPRESSION_LEVEL = 5
