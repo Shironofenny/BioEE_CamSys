@@ -17,7 +17,7 @@ void loop() {
     IncomeByte = Serial.read();
     Serial.print("Reading ");
     Serial.print(IncomeByte);
-    Serial.print("\n");
+    Serial.print("\n"); 
     
     if (IncomeByte == '0') {
       
