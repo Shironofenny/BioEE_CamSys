@@ -16,9 +16,9 @@ class CameraSys(QtWidgets.QMainWindow):
         super(QtWidgets.QMainWindow, self).__init__()
 
         # System internal flags
-        self.isUIReady = False;
-        self.isArduinoReady = False;
-        self.isCameraReady = False;
+        self.isUIReady = False
+        self.isArduinoReady = False
+        self.isCameraReady = False
 
         # Bring up the UI
         # If UI is not avaiable, then there is no point running this program any longer.
@@ -105,8 +105,12 @@ class CameraSys(QtWidgets.QMainWindow):
         else :
             self.ui.pbLight.setCheckable(True)
             self.ui.pbLight.clicked.connect(self.switchLED)
-        self.ui.pbClickToApply.clicked.connect(self.updateCameraParam)
-        self.ui.pbClickToApply.setEnabled(False)
+        self.ui.pbClickToApply.clicked.connect(self.callCameraDefault)
+        self.ui.pbClickToApply.setEnabled(True)
+        self.ui.pbUpdate.setEnabled(True)
+        self.ui.pbUpdate.clicked.connect(self.updateUI)
+        self.ui.pbSet.setEnabled(True)
+        self.ui.pbSet.clicked.connect(self.updateCameraParam)
 
         # Bonding line edits
         self.ui.leFocus.editingFinished.connect(self.updateLineFocus)
@@ -124,6 +128,22 @@ class CameraSys(QtWidgets.QMainWindow):
         self.ui.lContrast.setText('Contrast = ' + str(self.cam.contrast))
         self.ui.lExposure.setText('Exposure = ' + str(self.cam.exposure))
         self.ui.lGain.setText('Gain = ' + str(self.cam.gain))
+        self.ui.leFocus.setText(str(self.cam.focus))
+        self.ui.leBrightness.setText(str(self.cam.brightness))
+        self.ui.leHue.setText(str(self.cam.hue))
+        self.ui.leContrast.setText(str(self.cam.contrast))
+        self.ui.leExposure.setText(str(self.cam.exposure))
+        self.ui.leGain.setText(str(self.cam.gain))
+
+    def callCameraDefault(self):
+        self.cam.callCameraSettingProg()
+        self.cam.focus = self.cameraFocus
+        self.cam.brightness = self.cameraBrightness
+        self.cam.hue = self.cameraHue
+        self.cam.contrast = self.cameraContrast
+        self.cam.exposure = self.cameraExposure
+        self.cam.gain = self.cameraGain
+        self.updateUI()
 
     def updateCameraParam(self):
         self.cam.focus = self.cameraFocus
@@ -133,7 +153,6 @@ class CameraSys(QtWidgets.QMainWindow):
         self.cam.exposure = self.cameraExposure
         self.cam.gain = self.cameraGain
         self.cam.loadCameraDynParam()
-        self.ui.pbClickToApply.setEnabled(False)
         self.updateUI()
 
     # Group functions for line edits

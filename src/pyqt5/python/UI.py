@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'camsys.ui'
 #
-# Created by: PyQt5 UI code generator 5.6
+# Created by: PyQt5 UI code generator 5.7
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -141,6 +141,18 @@ class Ui_MainWindow(object):
         self.leGain.setObjectName("leGain")
         self.horizontalLayout_6.addWidget(self.leGain)
         self.verticalLayout_4.addWidget(self.wGain)
+        self.wUpdate = QtWidgets.QWidget(self.wCameraSetting)
+        self.wUpdate.setObjectName("wUpdate")
+        self.horizontalLayout_14 = QtWidgets.QHBoxLayout(self.wUpdate)
+        self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_14.setObjectName("horizontalLayout_14")
+        self.pbUpdate = QtWidgets.QPushButton(self.wUpdate)
+        self.pbUpdate.setObjectName("pbUpdate")
+        self.horizontalLayout_14.addWidget(self.pbUpdate)
+        self.pbSet = QtWidgets.QPushButton(self.wUpdate)
+        self.pbSet.setObjectName("pbSet")
+        self.horizontalLayout_14.addWidget(self.pbSet)
+        self.verticalLayout_4.addWidget(self.wUpdate)
         self.verticalLayout_3.addWidget(self.wCameraSetting)
         self.widget_4 = QtWidgets.QWidget(self.widget)
         self.widget_4.setObjectName("widget_4")
@@ -216,7 +228,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.controlPanel)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 900, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 900, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -241,14 +253,16 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.lCameraSettings.setText(_translate("MainWindow", "Camera Settings"))
-        self.pbClickToApply.setText(_translate("MainWindow", "Click to apply"))
+        self.lCameraSettings.setText(_translate("MainWindow", "Official Adjusting Tool"))
+        self.pbClickToApply.setText(_translate("MainWindow", "Click to use"))
         self.lFocus.setText(_translate("MainWindow", "Focus"))
         self.lBrightness.setText(_translate("MainWindow", "Brightness"))
         self.lHue.setText(_translate("MainWindow", "Hue"))
         self.lContrast.setText(_translate("MainWindow", "Contrast"))
         self.lExposure.setText(_translate("MainWindow", "Exposure"))
         self.lGain.setText(_translate("MainWindow", "Gain"))
+        self.pbUpdate.setText(_translate("MainWindow", "Update"))
+        self.pbSet.setText(_translate("MainWindow", "Click to apply"))
         self.label_3.setText(_translate("MainWindow", "Save Picture to ..."))
         self.pbBrowse.setText(_translate("MainWindow", "Browse"))
         self.lSavingInterval.setText(_translate("MainWindow", "Saving Interval :"))

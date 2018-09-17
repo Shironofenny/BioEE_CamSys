@@ -70,8 +70,16 @@ class Camera(object):
         # Disable autofocus
         #self.capture.set(cv2.CAP_PROP_AUTOFOCUS, 0)
 
-    def loadCameraDynParam(self):
+    def callCameraSettingProg(self):
         self.capture.set(cv2.CAP_PROP_SETTINGS, 1)
+
+    def loadCameraDynParam(self):
+        self.capture.set(cv2.CAP_PROP_FOCUS, self.focus)
+        self.capture.set(cv2.CAP_PROP_BRIGHTNESS, self.brightness)
+        self.capture.set(cv2.CAP_PROP_CONTRAST, self.contrast)
+        self.capture.set(cv2.CAP_PROP_HUE, self.hue)
+        self.capture.set(cv2.CAP_PROP_GAIN, self.gain)
+        self.capture.set(cv2.CAP_PROP_EXPOSURE, self.exposure)
 
     def loadCameraStaParam(self):
         self.capture.set(3, self.captureSize[0])
